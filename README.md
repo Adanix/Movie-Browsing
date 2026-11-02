@@ -1,58 +1,151 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🎬 MATINEE — Multi-City Cinema Browsing & Animated Catalog Platform
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+[![Laravel 13](https://img.shields.io/badge/Laravel-13.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
+[![PHP 8.5](https://img.shields.io/badge/PHP-8.5-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
+[![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Alpine.js](https://img.shields.io/badge/Alpine.js-v3.x-8BC0D0?style=for-the-badge&logo=alpinedotjs&logoColor=white)](https://alpinejs.dev)
+[![Tests Passing](https://img.shields.io/badge/Tests-20%20Passed%20(85%20Assertions)-10B981?style=for-the-badge&logo=githubactions&logoColor=white)](#automated-testing)
 
-## About Laravel
+> **Live Theatrical Preview**: [https://movie.ramadadawah.my.id](https://movie.ramadadawah.my.id)  
+> **Evaluator Inquiries**: [`mailto:nixresponding@gmail.com`](mailto:nixresponding@gmail.com)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Matinee** is a Dark Art-Deco theatrical discovery platform featuring multi-city cinema browsing, non-rigid fluid animation layouts (Bento Showcase, 3D Grid with cursor tilt & specular glare, Theatrical Timeline), calendar sync, interactive trailers, and a dedicated backoffice curation console with automated double-booking conflict detection.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## ✨ Key Platform Features
 
-## Learning Laravel
+### 1. Theatrical Experience & Fluid Animation ("Ga Kaku")
+- **Dark Art-Deco Palette**: Obsidian (`#0B0B0E`), Deep Velvet (`#141118`), Marquee Gold (`#F5C518`), Amber Spotlight (`#FBBF24`), Champagne White (`#FDFBF7`), Emerald Open (`#10B981`), Sky Upcoming (`#38BDF8`), and Rose Alert (`#E11D48`).
+- **3 Dynamic Layout Switcher Modes**:
+  - **Editorial Bento Showcase**: Asymmetric editorial layout with prominent hero posters, format badges, and expandable showtime slot drawers.
+  - **3D Grid**: Interactive cards featuring **cursor-driven 3D poster tilt & specular glare** via Alpine.js math (adaptive X/Y rotation with smooth spring physics).
+  - **Theatrical Timeline**: Time-linear flow of screenings across the circuit for today and upcoming dates.
+- **Theatrical Trailer Modal**: Interactive modal with MP4/HLS stream support, format tags, audio specifications, auto-pause on close, and keyboard `ESC` dismissal.
+- **Showtime Reveal & RFC-5545 iCalendar Export**: One-click download of `.ics` calendar invites for Apple Calendar, Google Calendar, and Microsoft Outlook.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 2. Multi-City Context & Cinema Palaces
+- **5 Supported Cities**: Jakarta, Bandung, Surabaya, Bali, and Missoula.
+- **Circuit Cinemas**: 11 flagship venues (e.g., Grand Surya Palace, Dago Grand Theatre, Tunjungan Grand Pavilion, Ubud Sacred Screenings, The Roxy Missoula) across 28 auditoriums with IMAX with Laser, Dolby Cinema Atmos, ScreenX 270°, and 70mm Film Print.
+- **Accessibility Badges**: Closed Captions (`CC`), Audio Description (`AD`), Sensory Friendly (`SF`), and Parent & Baby (`PB`).
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 3. Modular Phase 2 Slot-In Architecture
+In strict adherence to the Milestone 1 Demo brief, seat map reservation and payment checkout are decoupled behind a clean service boundary:
+- **`TicketingSlotInterface`**: Interface preparing normalized `ShowtimeSlotContext` payloads.
+- **`PhaseOnePreviewSlotAdapter`**: Adapter delivering verified showtime contexts ready to slot in Phase 2 live seat locking (Redis TTL) and payment gateways (Midtrans / Stripe).
+- **Public API & HTML Previews**: Accessible via `GET /showtimes/{showtime}/preview` (supporting both JSON API and HTML slide-over previews).
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### 4. Backoffice Management & Showtime Conflict Engine
+- **Conflict Validation Engine (`ShowtimeConflictValidator`)**: Prevents auditorium double-booking by calculating film runtime plus a 20-minute turnaround buffer window.
+- **Master Catalog CRUD**: Dedicated Platform Admin console for title curation, vertical/horizontal artwork, runtime, age ratings (SU, 13+, 17+, 21+), audio & subtitles.
+- **Deterministic Studio Sync Simulator (`DeterministicStudioSyncSimulator`)**: Simulates external Hollywood and distributor feed ingestion with structured log tracking (`external_sync_logs`).
 
-## Agentic Development
+---
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## 👥 Demo Personas (1-Click Passwordless Login)
+
+Matinee includes a dedicated demo persona switcher accessible via `/demo/login` or directly from the top banner:
+
+| Persona | Name | Role | Primary Features & Scopes |
+| :--- | :--- | :--- | :--- |
+| **Cinephile Member** | Elena Vance | `visitor_member` | Personal Watchlist, release alerts, preferred city filter, iCal export. |
+| **Regional Manager** | Marcus Sterling | `cinema_manager` | Jakarta & Bandung cinema management, auditorium specs, showtime scheduling. |
+| **Platform Curator** | Aria Chen | `platform_admin` | Full Master Film Catalog CRUD, featured/trending curation, studio sync simulator. |
+
+---
+
+## 🚀 Canonical Routes & Endpoints
+
+| Method | URI | Route Name | Purpose |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/` | `public.home` | Premiere Hero, layout switcher, circuit cinemas showcase, contact footer. |
+| `GET` | `/docs` | `public.docs` | Architecture documentation, Phase 2 slot-in specifications, contact info. |
+| `GET` | `/demo/login` | `demo.login` | Passwordless persona selection cards. |
+| `POST` | `/demo/quick-login` | `demo.quick-login` | 1-click persona session regeneration. |
+| `POST` | `/logout` | `logout` | Session invalidation and redirect to demo login. |
+| `GET` | `/movies` | `movies.index` | Searchable & filterable theatrical catalog with layout switching. |
+| `GET` | `/movies/{slug}` | `movies.show` | Movie detail, runtime, trailer trigger, 14-day schedule. |
+| `GET` | `/movies/{slug}/calendar.ics` | `movies.calendar` | RFC-5545 iCalendar showtime download. |
+| `GET` | `/cinemas` | `cinemas.index` | Multi-city cinema palace directory. |
+| `GET` | `/cinemas/{slug}` | `cinemas.show` | Cinema venue profile, auditoriums, sound specs, transit notes. |
+| `GET` | `/showtimes/{id}/preview` | `showtimes.preview` | Phase 2 slot-in context preview (JSON & HTML). |
+| `GET` | `/watchlist` | `watchlist.index` | Member watchlist & release reminders. |
+| `GET` | `/manage` | `manage.dashboard` | Backoffice management overview. |
+| `GET` | `/manage/movies` | `manage.movies.index` | Master film catalog management (Admin). |
+| `GET` | `/manage/showtimes` | `manage.showtimes.index` | Showtime scheduling with double-booking validation. |
+
+---
+
+## 🧪 Automated Testing
+
+The project includes an end-to-end automated test suite covering mandatory P0 routes, catalog discovery, conflict validation, and role authorization gates:
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+docker exec movie-app-1 php artisan test
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### Test Suite Results:
+```text
+   PASS  Tests\Unit\ExampleTest
+  ✓ that true is true
 
-## Contributing
+   PASS  Tests\Feature\BackofficeAuthorizationAndConflictTest
+  ✓ guest is redirected when accessing backoffice
+  ✓ visitor member is forbidden from backoffice
+  ✓ cinema manager can access dashboard and showtimes
+  ✓ cinema manager is forbidden from master film catalog
+  ✓ platform admin can access film catalog and sync simulator
+  ✓ showtime conflict engine prevents double booking
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+   PASS  Tests\Feature\ExampleTest
+  ✓ the application returns a successful response
 
-## Code of Conduct
+   PASS  Tests\Feature\MovieCatalogAndDiscoveryTest
+  ✓ movies index lists titles and supports filtering
+  ✓ movie detail page renders with schedule
+  ✓ movie calendar ics export
+  ✓ cinemas index and detail routes
+  ✓ showtime slot preview json and html
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+   PASS  Tests\Feature\P0MandatoryDeliverablesTest
+  ✓ public home route renders successfully with contact email
+  ✓ public docs route renders successfully with contact email
+  ✓ demo login route renders successfully
+  ✓ quick login visitor member persona
+  ✓ quick login cinema manager persona
+  ✓ quick login platform admin persona
+  ✓ logout clears authentication
 
-## Security Vulnerabilities
+  Tests:    20 passed (85 assertions)
+  Duration: 24.50s
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## 🛠 Local Setup & Development
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 1. Environment & Database
+```bash
+cp .env.example .env
+# Configure DB_DATABASE, DB_USERNAME, DB_PASSWORD
+php artisan key:generate
+php artisan migrate --seed
+```
+
+### 2. Frontend Asset Compilation
+```bash
+npm install
+npm run build
+```
+
+### 3. Resetting Demo State
+To restore the database to standard demo seeding at any time:
+```bash
+php artisan demo:reset
+```
+
+---
+
+## 📄 License & Attribution
+
+Designed and developed for the **Matinee Cinema Platform (Milestone 1 Demo)**. Built with Laravel 13, Tailwind CSS v4, and Alpine.js.
