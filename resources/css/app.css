@@ -2,8 +2,100 @@
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
+@source '../views/**/*.blade.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-display: 'Cinzel', 'Playfair Display', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+    --color-obsidian: #09090B;
+    --color-velvet: #121217;
+    --color-velvet-raised: #1A1A22;
+    --color-velvet-border: #272733;
+    --color-crimson-curtain: #991B1B;
+    --color-marquee-gold: #F5C518;
+    --color-amber-spotlight: #D97706;
+    --color-champagne: #FBF7EE;
+    --color-silver-screen: #A1A1AA;
+    --color-slate-muted: #52525B;
+    --color-emerald-open: #10B981;
+    --color-sky-upcoming: #38BDF8;
+    --color-rose-alert: #F43F5E;
+}
+
+/* Custom Art-Deco border accents & patterns */
+.art-deco-border {
+    position: relative;
+    border: 1px solid rgba(245, 197, 24, 0.25);
+}
+
+.art-deco-border::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 1px solid rgba(245, 197, 24, 0.12);
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+.marquee-glow {
+    text-shadow: 0 0 12px rgba(245, 197, 24, 0.45), 0 0 24px rgba(245, 197, 24, 0.2);
+}
+
+.gold-gradient-text {
+    background: linear-gradient(135deg, #FFF6D6 0%, #F5C518 50%, #D97706 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.silver-gradient-text {
+    background: linear-gradient(135deg, #FFFFFF 0%, #A1A1AA 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* 3D Poster tilt perspective */
+.poster-3d-wrap {
+    perspective: 1000px;
+}
+
+.poster-3d-card {
+    transform-style: preserve-3d;
+    transition: transform 0.15s ease-out;
+    will-change: transform;
+}
+
+.poster-glare {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(245, 197, 24, 0.28), transparent 60%);
+    mix-blend-mode: screen;
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+    border-radius: inherit;
+}
+
+.poster-3d-card:hover .poster-glare {
+    opacity: 1;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #09090B;
+}
+::-webkit-scrollbar-thumb {
+    background: #272733;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #F5C518;
 }

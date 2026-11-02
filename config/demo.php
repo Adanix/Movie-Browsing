@@ -1,0 +1,50 @@
+<?php
+
+return [
+    'enabled' => env('APP_DEMO_MODE', true),
+    'contact_email' => env('DEMO_CONTACT_EMAIL', 'nixresponding@gmail.com'),
+    'keep_dates_current' => env('DEMO_KEEP_DATES_CURRENT', true),
+    'default_city_slug' => env('DEMO_DEFAULT_CITY_SLUG', 'jakarta'),
+
+    'personas' => [
+        'visitor_member' => [
+            'key' => 'visitor_member',
+            'name' => 'Elena Vance',
+            'title' => 'Cinema Member (Cinephile)',
+            'role' => 'visitor_member',
+            'email' => 'elena.vance@demo.matinee.test',
+            'default_route' => 'movies.index',
+            'button_label' => 'Continue as Cinema Member',
+            'badge' => 'Cinephile Member',
+            'description' => 'Save movies to persistent Watchlist, subscribe to Release Date alerts, persist favorite city & language filters, export .ics showtimes.',
+            'avatar_initials' => 'EV',
+            'accent' => '#F5C518',
+        ],
+        'cinema_manager' => [
+            'key' => 'cinema_manager',
+            'name' => 'Marcus Sterling',
+            'title' => 'Regional Cinema Manager (Jakarta & Bandung)',
+            'role' => 'cinema_manager',
+            'email' => 'marcus.sterling@demo.matinee.test',
+            'default_route' => 'manage.cinemas.index',
+            'button_label' => 'Enter as Regional Cinema Manager',
+            'badge' => 'Regional Manager',
+            'description' => 'Manage Jakarta & Bandung cinema venues, configure IMAX/35mm auditoriums, schedule daily showtimes, and toggle accessibility tags (CC, AD).',
+            'avatar_initials' => 'MS',
+            'accent' => '#10B981',
+        ],
+        'platform_admin' => [
+            'key' => 'platform_admin',
+            'name' => 'Aria Chen',
+            'title' => 'Platform Curator & Lead Admin',
+            'role' => 'platform_admin',
+            'email' => 'aria.chen@demo.matinee.test',
+            'default_route' => 'manage.dashboard',
+            'button_label' => 'Continue as Platform Curator',
+            'badge' => 'Lead Curator & Admin',
+            'description' => 'Full Movie Catalog CRUD, manage genres/languages/release dates, curate Hero Featured & Trending titles, and run the Studio Metadata Sync simulator.',
+            'avatar_initials' => 'AC',
+            'accent' => '#38BDF8',
+        ],
+    ],
+];
